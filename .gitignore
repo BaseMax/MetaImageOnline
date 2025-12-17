@@ -1,0 +1,16 @@
+# Test files
+test.txt
+test-image.jpg
+sample-image.jpg
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
