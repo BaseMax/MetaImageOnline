@@ -1,8 +1,6 @@
-# MetaImageOnline
+# Meta-Image Online
 
-MetaImageOnline is a lightweight, web-based image inspection tool that validates image files,
-extracts technical properties (dimensions, format, size), and reads embedded metadata
-(EXIF, GPS, camera, author, etc.) directly in the browser.
+MetaImageOnline is a lightweight, web-based image inspection tool that validates image files, extracts technical properties (dimensions, format, size), and reads embedded metadata (EXIF, GPS, camera, author, etc.) directly in the browser.
 
 The project is designed to be dependency-light, privacy-friendly, and extensible for
 advanced image analysis workflows.
@@ -20,6 +18,7 @@ advanced image analysis workflows.
 ### 2. Format Support
 
 Supports as many formats as browsers allow, including:
+
 - JPEG / JPG
 - PNG
 - GIF
@@ -39,6 +38,7 @@ Supports as many formats as browsers allow, including:
 ### 4. Metadata (EXIF) Reading
 
 When available:
+
 - Camera make and model
 - Lens information
 - Photographer / artist

@@ -1,4 +1,3 @@
-// DOM Elements
 const uploadArea = document.getElementById('uploadArea');
 const fileInput = document.getElementById('fileInput');
 const previewSection = document.getElementById('previewSection');
@@ -9,7 +8,6 @@ const errorMessage = document.getElementById('errorMessage');
 const resetButton = document.getElementById('resetButton');
 const errorResetButton = document.getElementById('errorResetButton');
 
-// Info display elements
 const validationStatus = document.getElementById('validationStatus');
 const basicProperties = document.getElementById('basicProperties');
 const imageDimensions = document.getElementById('imageDimensions');
@@ -19,22 +17,18 @@ const gpsLocation = document.getElementById('gpsLocation');
 const authorInfo = document.getElementById('authorInfo');
 const additionalExif = document.getElementById('additionalExif');
 
-// Card elements
 const cameraCard = document.getElementById('cameraCard');
 const gpsCard = document.getElementById('gpsCard');
 const authorCard = document.getElementById('authorCard');
 const exifCard = document.getElementById('exifCard');
 
-// Supported image formats
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/tiff'];
 
-// Event Listeners
 uploadArea.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', handleFileSelect);
 resetButton.addEventListener('click', resetApp);
 errorResetButton.addEventListener('click', resetApp);
 
-// Drag and Drop
 uploadArea.addEventListener('dragover', (e) => {
     e.preventDefault();
     uploadArea.classList.add('drag-over');
@@ -53,7 +47,6 @@ uploadArea.addEventListener('drop', (e) => {
     }
 });
 
-// Handle file selection
 function handleFileSelect(event) {
     const file = event.target.files[0];
     if (file) {
@@ -61,21 +54,16 @@ function handleFileSelect(event) {
     }
 }
 
-// Main file handler
 function handleFile(file) {
-    // Validate file
     if (!validateFile(file)) {
         return;
     }
 
-    // Hide upload area and error section
     uploadArea.parentElement.style.display = 'none';
     errorSection.style.display = 'none';
 
-    // Show preview section
     previewSection.style.display = 'block';
 
-    // Read and process file
     const reader = new FileReader();
     reader.onload = function(e) {
         const img = new Image();
@@ -94,21 +82,17 @@ function handleFile(file) {
     reader.readAsDataURL(file);
 }
 
-// Validate file
 function validateFile(file) {
-    // Check if file exists
     if (!file) {
         showError('No file selected.');
         return false;
     }
 
-    // Check file type
     if (!SUPPORTED_FORMATS.includes(file.type)) {
         showError(`Unsupported file format: ${file.type || 'unknown'}. Please select a valid image file.`);
         return false;
     }
 
-    // Check file size (limit to 50MB)
     const maxSize = 50 * 1024 * 1024; // 50MB
     if (file.size > maxSize) {
         showError('File size exceeds 50MB limit. Please select a smaller file.');
@@ -118,28 +102,20 @@ function validateFile(file) {
     return true;
 }
 
-// Extract all image data
 function extractImageData(file, img, dataUrl) {
-    // Display validation status
     displayValidationStatus(file);
 
-    // Display basic properties
     displayBasicProperties(file);
 
-    // Display dimensions
     displayDimensions(img);
 
-    // Display file information
     displayFileInformation(file);
 
-    // Extract EXIF data
     extractExifData(img, dataUrl);
 
-    // Show results section
     resultsSection.style.display = 'block';
 }
 
-// Display validation status
 function displayValidationStatus(file) {
     const isValid = SUPPORTED_FORMATS.includes(file.type);
     validationStatus.innerHTML = `
@@ -158,7 +134,6 @@ function displayValidationStatus(file) {
     `;
 }
 
-// Display basic properties
 function displayBasicProperties(file) {
     const format = file.type.split('/')[1].toUpperCase();
     basicProperties.innerHTML = `
@@ -177,7 +152,6 @@ function displayBasicProperties(file) {
     `;
 }
 
-// Display dimensions
 function displayDimensions(img) {
     const aspectRatio = (img.width / img.height).toFixed(2);
     const megapixels = ((img.width * img.height) / 1000000).toFixed(2);
@@ -202,7 +176,6 @@ function displayDimensions(img) {
     `;
 }
 
-// Display file information
 function displayFileInformation(file) {
     const sizeKB = (file.size / 1024).toFixed(2);
     const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
@@ -220,26 +193,20 @@ function displayFileInformation(file) {
     `;
 }
 
-// Extract EXIF data
 function extractExifData(img, dataUrl) {
     EXIF.getData(img, function() {
         const allExifData = EXIF.getAllTags(this);
         
-        // Display camera information
         displayCameraInformation(allExifData);
         
-        // Display GPS location
         displayGPSLocation(allExifData);
         
-        // Display author and copyright
         displayAuthorInformation(allExifData);
         
-        // Display additional EXIF data
         displayAdditionalExif(allExifData);
     });
 }
 
-// Display camera information
 function displayCameraInformation(exifData) {
     const cameraInfo = [];
     
@@ -286,7 +253,6 @@ function displayCameraInformation(exifData) {
     }
 }
 
-// Display GPS location
 function displayGPSLocation(exifData) {
     const gpsInfo = [];
     
@@ -338,7 +304,6 @@ function displayGPSLocation(exifData) {
             valueSpan.className = 'info-value';
             
             if (info.mapLink) {
-                // Create link element for map
                 const link = document.createElement('a');
                 link.href = `https://www.google.com/maps?q=${info.mapLink.lat},${info.mapLink.lon}`;
                 link.target = '_blank';
@@ -360,7 +325,6 @@ function displayGPSLocation(exifData) {
     }
 }
 
-// Display author and copyright information
 function displayAuthorInformation(exifData) {
     const authorInfo_data = [];
     
@@ -390,7 +354,6 @@ function displayAuthorInformation(exifData) {
     }
 }
 
-// Display additional EXIF data
 function displayAdditionalExif(exifData) {
     const excludeKeys = [
         'Make', 'Model', 'LensModel', 'ExposureTime', 'FNumber', 'ISO', 'ISOSpeedRatings',
@@ -404,15 +367,13 @@ function displayAdditionalExif(exifData) {
         if (!excludeKeys.includes(key) && exifData[key] !== undefined && exifData[key] !== null) {
             let value = exifData[key];
             
-            // Handle special data types
             if (typeof value === 'object' && !Array.isArray(value)) {
-                continue; // Skip complex objects
+                continue;
             }
             if (Array.isArray(value)) {
                 value = value.join(', ');
             }
             
-            // Format key name (add spaces before capital letters)
             const formattedKey = key.replace(/([A-Z])/g, ' $1').trim();
             
             additionalData.push({ label: formattedKey, value: String(value) });
@@ -432,7 +393,6 @@ function displayAdditionalExif(exifData) {
     }
 }
 
-// Convert GPS coordinates from DMS to Decimal Degrees
 function convertDMSToDD(degrees, minutes, seconds, direction) {
     let dd = degrees + minutes / 60 + seconds / 3600;
     if (direction === 'S' || direction === 'W') {
@@ -441,7 +401,6 @@ function convertDMSToDD(degrees, minutes, seconds, direction) {
     return dd;
 }
 
-// Show error message
 function showError(message) {
     uploadArea.parentElement.style.display = 'none';
     previewSection.style.display = 'none';
@@ -450,27 +409,21 @@ function showError(message) {
     errorMessage.textContent = message;
 }
 
-// Reset application
 function resetApp() {
-    // Reset file input
     fileInput.value = '';
     
-    // Hide all sections except upload
     uploadArea.parentElement.style.display = 'block';
     previewSection.style.display = 'none';
     resultsSection.style.display = 'none';
     errorSection.style.display = 'none';
     
-    // Clear image preview
     imagePreview.src = '';
     
-    // Hide optional cards
     cameraCard.style.display = 'none';
     gpsCard.style.display = 'none';
     authorCard.style.display = 'none';
     exifCard.style.display = 'none';
     
-    // Clear all content
     validationStatus.innerHTML = '';
     basicProperties.innerHTML = '';
     imageDimensions.innerHTML = '';
@@ -481,5 +434,4 @@ function resetApp() {
     additionalExif.innerHTML = '';
 }
 
-// Initialize
 console.log('MetaImageOnline initialized');
