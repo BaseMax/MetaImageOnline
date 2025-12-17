@@ -1,93 +1,110 @@
 # MetaImageOnline
 
-MetaImageOnline is a lightweight, web-based image inspection tool that validates image files,
-extracts technical properties (dimensions, format, size), and reads embedded metadata
-(EXIF, GPS, camera, author, etc.) directly in the browser.
+A lightweight, web-based image inspection tool that validates image files, extracts technical properties (dimensions, format, size), and reads embedded metadata (EXIF, GPS, camera, author, etc.) directly in the browser.
 
-The project is designed to be dependency-light, privacy-friendly, and extensible for
-advanced image analysis workflows.
+## Features
 
----
+- **Image Validation**: Validates image files and displays their status
+- **Technical Properties**: 
+  - Image dimensions (width, height)
+  - Format detection (JPEG, PNG, GIF, WebP, BMP, TIFF)
+  - File size information
+  - Aspect ratio and megapixels
+- **EXIF Metadata Extraction**:
+  - Camera information (make, model, lens)
+  - Camera settings (exposure time, f-number, ISO, focal length)
+  - GPS coordinates with map links
+  - Author and copyright information
+  - Additional EXIF data
+- **Privacy First**: All processing happens locally in your browser - no data is uploaded to any server
+- **Drag & Drop Support**: Easily drag and drop images for inspection
+- **Responsive Design**: Works on desktop and mobile devices
 
-## Core Capabilities
+## Usage
 
-### 1. Image Validation
-- Detects whether a selected or dragged file is a valid image
-- MIME-type and binary-level verification
-- Rejects spoofed or unsupported files gracefully
+1. Open `index.html` in your web browser
+2. Either click the upload area or drag and drop an image file
+3. View the extracted metadata and properties
 
-### 2. Format Support
-Supports as many formats as browsers allow, including:
-- JPEG / JPG
+### Supported Formats
+
+- JPEG/JPG
 - PNG
 - GIF
 - WebP
 - BMP
-- TIFF (partial, browser-dependent)
-- HEIC / HEIF (where supported)
-- SVG (metadata limited)
+- TIFF
 
-### 3. Image Properties Extraction
-- Width and height (pixels)
-- File size
-- MIME type
-- Aspect ratio
+## Live Demo
 
-### 4. Metadata (EXIF) Reading
-When available:
-- Camera make and model
-- Lens information
-- Photographer / artist
-- Date taken
-- Orientation
-- GPS coordinates (latitude / longitude)
-- Software used for editing
+Simply open the `index.html` file in any modern web browser. No server or build process required!
 
-### 5. Privacy-First Design
-- All processing happens locally in the browser
-- No uploads to any server
-- No tracking or analytics
+## Screenshots
 
----
+The tool provides a clean, intuitive interface for inspecting image metadata with organized sections for:
+- Validation status
+- Basic properties
+- Image dimensions
+- File information
+- Camera information (if available)
+- GPS location (if available)
+- Author & copyright (if available)
+- Additional EXIF data (if available)
 
-## Technical Design
+## Technical Details
 
-### Frontend
-- HTML5
-- Vanilla JavaScript (ES6+)
-- TailwindCSS (CDN)
+### Technologies Used
 
-### Metadata Parsing
-- EXIF data extracted using binary parsing via `DataView`
-- Designed to allow optional integration with libraries like:
-  - exifr
-  - piexifjs
-  - libheif (future)
+- **HTML5**: Structure and file input
+- **CSS3**: Modern styling with gradients and responsive design
+- **JavaScript (ES6)**: Image processing and metadata extraction
+- **EXIF.js**: EXIF metadata reading library
 
----
+### How It Works
 
-## Use Cases
+1. **File Selection**: User selects an image via click or drag-and-drop
+2. **Validation**: File type and size are validated
+3. **Image Loading**: Image is loaded using FileReader API
+4. **Property Extraction**: Basic properties are extracted from the Image object
+5. **EXIF Reading**: EXIF.js library reads embedded metadata
+6. **Display**: All information is organized and displayed in separate cards
 
-- OSINT / forensic image inspection
-- Verifying image authenticity
-- Educational tooling
-- Photographer metadata auditing
-- Web upload validation
+### Privacy & Security
 
----
+- All processing happens entirely in the browser
+- No data is transmitted to any server
+- Files are processed in memory and not stored
+- Safe for sensitive images
 
-## Future Roadmap
+## Development
 
-- Drag-and-drop batch processing
-- Map preview for GPS metadata
-- Hashing (SHA-256) for image fingerprinting
-- Server-side API version (Node.js)
-- WASM-based extended format support
+No build process required! Just edit the files:
+- `index.html` - Main HTML structure
+- `style.css` - Styling
+- `app.js` - JavaScript functionality
 
----
+## Browser Compatibility
+
+Works in all modern browsers that support:
+- FileReader API
+- HTML5 File API
+- ES6 JavaScript
+
+Tested on:
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+## Acknowledgments
+
+- EXIF.js library for EXIF metadata extraction
 
 ## License
 
-MIT
+MIT License - See [LICENSE](LICENSE) file for details
 
-Copyright 2025, Seyyed Ali Mohammadiyeh (Max Base)
+Copyright (c) 2025 Seyyed Ali Mohammadiyeh (Max Base)
